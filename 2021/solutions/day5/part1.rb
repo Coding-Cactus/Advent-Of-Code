@@ -5,7 +5,7 @@ File.foreach("../../inputs/day5.txt") do |line|
 	start_x, start_y = start_coord.split(",").map { |n| n.to_i }
 	end_x, end_y = end_coord.split(",").map { |n| n.to_i }
 
-	next if start_x != end_x and start_y != end_y
+	next if start_x != end_x && start_y != end_y
 
 	current_x, current_y = start_x, start_y
 	direction_x = current_x < end_x ? 1 : -1
