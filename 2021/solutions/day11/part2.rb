@@ -1,13 +1,6 @@
 octopi = []
 File.foreach("../../inputs/day11.txt") { |line|	octopi << line.strip.split("").map { |octopus| octopus.to_i } }
 
-def print_octopi(o)
-	puts "\n\n"
-	o.each do |line|
-		puts line.join(",")
-	end
-end
-
 step = 0
 all_flashed = false
 until all_flashed do
