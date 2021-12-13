@@ -12,6 +12,6 @@ File.foreach("../../inputs/day6.txt") do |line|
 		line.strip.split("").each { |question| group[question] += 1 }
 	end
 end
-	count += group.select { |_, num| num == group_size }.length
+count += group.select { |_, num| num == group_size }.length
 
 puts count
