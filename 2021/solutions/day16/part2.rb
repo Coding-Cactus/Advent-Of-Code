@@ -9,8 +9,6 @@ end
 
 
 class Packet
-	attr_reader :version, :id, :value, :sub_packets
-
 	def initialize(version, id, value, sub_packets)
 		@id          = id
 		@value       = value
