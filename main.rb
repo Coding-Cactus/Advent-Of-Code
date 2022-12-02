@@ -1,5 +1,5 @@
 year = nil
-until ["2020", "2021"].include?(year)
+until ("2020".."2022").to_a.include?(year)
 	print "Enter year: "
 	year = gets.chomp
 end
