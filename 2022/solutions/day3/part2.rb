@@ -2,21 +2,21 @@ sum = 0
 elves = []
 
 File.foreach("../../inputs/day3.txt") do |line|
-  if elves.length < 2
+    if elves.length < 2
+        elves << line.strip.split("")
+        next
+    end
+
     elves << line.strip.split("")
-    next
-  end
 
-  elves << line.strip.split("")
+    c = elves.reduce { |i, items| i & items }[0]
 
-  c = elves.reduce { |i, items| i & items }[0]
+    priority = c.ord - 96
+    priority += 58 if priority < 1
 
-  priority = c.ord - 96
-  priority += 58 if priority < 1
+    sum += priority
 
-  sum += priority
-
-  elves = []
+    elves = []
 end
 
 puts sum
