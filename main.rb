@@ -1,9 +1,8 @@
 year = nil
 until ("2020".."2022").to_a.include?(year)
-	print "Enter year: \e[36;3m"
+	print "\e[0mEnter year: \e[36;3m"
 	year = gets.chomp
 end
-
 
 day = nil
 until Dir["#{year}/solutions/*"].include?("#{year}/solutions/day#{day}")
