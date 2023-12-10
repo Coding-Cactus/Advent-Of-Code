@@ -44,18 +44,19 @@ end
 
 
 inners = 0
-grid.each_with_index do |row, y|
-  row.each_index do |x|
-    next if loop.include?([x, y])
+grid.each_index do |y|
+  top_count = bottom_count = 0
+  top_bottom_count = Hash.new(0)
 
-    left_parity  = false
-    right_parity = false
-    (y...grid.length).each do |_y|
-      left_parity  = !left_parity  if loop.include?([x, _y]) && %w[- L F].include?(grid[_y][x])
-      right_parity = !right_parity if loop.include?([x, _y]) && %w[- J 7].include?(grid[_y][x])
-    end
+  grid[y].each_index do |x|
+    top_count    += 1 if loop.include?([x, y]) && %w[| F 7].include?(grid[y][x])
+    bottom_count += 1 if loop.include?([x, y]) && %w[| L J].include?(grid[y][x])
 
-    inners += 1 if left_parity && right_parity
+    top_bottom_count[[top_count, bottom_count]] += 1 unless loop.include?([x, y])
+  end
+
+  inners += top_bottom_count.reduce(0) do |sum, ((top, bottom), count)|
+    sum + ((top_count - top) % 2 == 1 && (bottom_count - bottom) % 2 == 1 ? count : 0)
   end
 end
 
