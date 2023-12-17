@@ -1,11 +1,13 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    priority_queue_cxx (0.3.6)
 
 PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  priority_queue_cxx
 
 BUNDLED WITH
    2.3.26
