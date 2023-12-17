@@ -10,6 +10,7 @@ when "1"
   until Dir["*/"].include?("#{year}/")
     print "\e[0mEnter year: \e[36;3m"
     year = gets.chomp
+    year = "20" + year if year.length == 2
   end
 
   until Dir["#{year}/*"].include?("#{year}/day#{day}")
@@ -27,10 +28,23 @@ when "2"
   part = File.exists?("#{year}/day#{day}/part2.rb") ? 2 : 1
 end
 
+
 Dir.chdir("#{year}/day#{day}")
 
-print "\e[0;32;1m"
+# new system after 2023 day 17
+if year.to_i >= 2023 && day.to_i > 17
+  lines = File.foreach("input.txt").map(&:strip)
+  require_relative "#{year}/day#{day}/part#{part}.rb"
 
-start = Time.now
-require_relative "#{year}/day#{day}/part#{part}.rb"
-puts "\e[0mApproximate Runtime: \e[33;1m#{((Time.now - start) * 1000).round(2)}\e[0;33mms\e[0m"
+  start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+  s = solve(lines)
+  end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+
+  puts "\e[0;32;1m#{s}"
+else
+  start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+  require_relative "#{year}/day#{day}/part#{part}.rb"
+  end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+end
+
+puts "\e[0mApproximate Runtime: \e[33;1m#{((end_time - start_time) * 1000).round(2)}\e[0;33mms\e[0m"
