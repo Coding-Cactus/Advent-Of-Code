@@ -33,6 +33,8 @@ Dir.chdir("#{year}/day#{day}")
 
 # new system after 2023 day 17
 if year.to_i >= 2023 && day.to_i > 17
+  print "\e[38;2;255;194;20m" # colour debugging logs in orange
+
   lines = File.foreach("input.txt").map(&:strip)
   require_relative "#{year}/day#{day}/part#{part}.rb"
 
@@ -42,6 +44,8 @@ if year.to_i >= 2023 && day.to_i > 17
 
   puts "\e[0;32;1m#{s}"
 else
+  print "\e[0;32;1m"
+
   start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
   require_relative "#{year}/day#{day}/part#{part}.rb"
   end_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
