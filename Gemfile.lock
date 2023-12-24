@@ -1,12 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    matrix (0.4.2)
     priority_queue_cxx (0.3.6)
 
 PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  matrix
   priority_queue_cxx
 
 BUNDLED WITH
