@@ -2,7 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     matrix (0.4.2)
+    pairing_heap (3.0.1)
     priority_queue_cxx (0.3.6)
+    rexml (3.2.6)
+    rgl (0.6.6)
+      pairing_heap (>= 0.3, < 4.0)
+      rexml (~> 3.2, >= 3.2.4)
+      stream (~> 0.5.3)
+    stream (0.5.5)
 
 PLATFORMS
   x86_64-linux
@@ -10,6 +17,7 @@ PLATFORMS
 DEPENDENCIES
   matrix
   priority_queue_cxx
+  rgl
 
 BUNDLED WITH
    2.3.26
