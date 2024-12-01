@@ -32,7 +32,7 @@ end
 Dir.chdir("#{year}/day#{day}")
 
 # new system after 2023 day 17
-if year.to_i >= 2023 && day.to_i > 17
+if (year.to_i == 2023 && day.to_i > 17) || year.to_i >= 2024
   print "\e[38;2;255;194;20m" # colour debugging logs in orange
 
   lines = File.foreach("input.txt").map(&:strip)
