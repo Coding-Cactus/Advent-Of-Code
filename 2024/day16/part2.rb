@@ -16,29 +16,28 @@ def solve(lines)
 
   queue = [[start, 0, 0]]
   until queue.empty?
-    coord, dir, cost = queue.shift
+    coord, dir_i, cost = queue.shift
 
-    return cost if grid[coord.imag][coord.real] == "E"
-
-    turns.each  do |di|
-      i = (dir + di) % 4
-      d = directions[i]
-      new_coord = coord + d
-      new_cost = cost + 1000*di.abs + 1
+    turns.each do |delta_i|
+      i = (dir_i + delta_i) % 4
+      dir = directions[i]
+      new_coord = coord + dir
+      new_cost = cost + 1000*delta_i.abs + 1
 
       cell = grid[new_coord.imag][new_coord.real]
-      next if cell[0] == "#"
       prev_cost = cell[1].min
 
-      turns.each do |ddi|
-        ii = (i + ddi) % 4
-        cst = new_cost + 1000*ddi.abs
+      next if cell[0] == "#"
 
-        if cst < cell[1][ii]
-          cell[1][ii] = cst
-          cell[2][ii] = [coord]
-        elsif cst == cell[1][ii]
-          cell[2][ii] << coord
+      turns.each do |di|
+        _i = (i + di) % 4
+        cst = new_cost + 1000*di.abs
+
+        if cst < cell[1][_i]
+          cell[1][_i] = cst
+          cell[2][_i] = [coord]
+        elsif cst == cell[1][_i]
+          cell[2][_i] << coord
         end
       end
 
@@ -48,14 +47,16 @@ def solve(lines)
 
   min_cost = grid[endpos.imag][endpos.real][1].min
 
+  stack = []
+  grid[endpos.imag][endpos.real][1].each_with_index { |c, i| stack << [endpos, i] if c == min_cost }
+
   seats = Set[]
-  stack = grid[endpos.imag][endpos.real][1].each_with_index.select { |cost, i| cost == min_cost }.map { |_, i| [endpos, i] }
   until stack.empty?
-    coord, prev_dir = stack.pop
+    coord, prev_dir_i = stack.pop
 
     seats << coord
 
-    grid[coord.imag][coord.real][2][prev_dir].each { |c| stack << [c, directions.index(coord - c)] }
+    grid[coord.imag][coord.real][2][prev_dir_i].each { |c| stack << [c, directions.index(coord - c)] }
   end
   seats.length
 end

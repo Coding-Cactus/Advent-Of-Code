@@ -17,7 +17,7 @@ def solve(lines)
 
     return cost if grid[coord.imag][coord.real] == "E"
 
-    turns.each  do |di|
+    turns.each do |di|
       i = (dir + di) % 4
       d = directions[i]
       new_coord = coord + d
