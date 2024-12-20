@@ -36,31 +36,18 @@ def solve(lines)
     end
   end
 
-  coord = endpos
   cheats = Set[]
+  coord = endpos
   until coord.nil?
-    base_cost = grid[coord.imag][coord.real][1]
+    cost = grid[coord.imag][coord.real][1]
 
-    seen = Set[coord]
-    queue = [coord]
-    20.times do |n|
-      new_queue = []
-      queue.each do |c|
-        directions.each do |d|
-          new_coord = c + d
-          new_cost = base_cost + n + 1
-
-          next unless new_coord.real.between?(0, max_x) && new_coord.imag.between?(0, max_y) && !seen.include?(new_coord)
-
-          if grid[new_coord.imag][new_coord.real][0] != "#"
-            saving = grid[new_coord.imag][new_coord.real][1] - new_cost
-            cheats << [coord, new_coord] if saving >= 100
-          end
-
-          seen << new_coord
-          new_queue << new_coord
-        end
-        queue = new_queue
+    (-20..20).each do |dx|
+      x = coord.real + dx
+      next unless x.between?(0, max_x)
+      ((-20+dx.abs)..(20-dx.abs)).each do |dy|
+        y = coord.imag + dy
+        c = cost + dx.abs + dy.abs
+        cheats << [coord, Complex(x, y)] if y.between?(0, max_y) && grid[y][x][0] != "#" && grid[y][x][1] - c >= 100
       end
     end
 
