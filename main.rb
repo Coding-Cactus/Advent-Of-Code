@@ -1,5 +1,7 @@
 type = year = day = part = nil
 
+type = "2" if ARGV.include?("--latest") || ARGV.include?("-l")
+
 until %w[1 2].include?(type)
     print "\e[0m1. Run specific program\n2. Run latest program\nEnter 1/2: \e[36;3m"
     type = gets.chomp
