@@ -37,7 +37,7 @@ Dir.chdir("#{year}/day#{day}")
 if (year.to_i == 2023 && day.to_i > 17) || year.to_i >= 2024
   print "\e[38;2;255;194;20m" # colour debugging logs in orange
 
-  lines = File.foreach("input.txt").map(&:strip)
+  lines = File.foreach("input.txt").map {|l| l.gsub(/[\n\r]+/, "") }
   require_relative "#{year}/day#{day}/part#{part}.rb"
 
   start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
